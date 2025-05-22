@@ -1,0 +1,30 @@
+
+{% extends "BaseTemplate.html" %}
+{% load static %}
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'styles/catalog.css' %}">
+{% endblock %}
+
+{% block content %}
+  {% for product in products %}
+    <div class="product-container">
+      <div class="image-container">
+        {% if product.image %}
+          <img src="{{ product.image.image.url }}"
+               alt="{{ product.image.alt_text }}"
+               width="{{ product.image.img_width }}"
+               height="{{ product.image.img_height }}">
+        {% else %}
+          <p>No image available.</p>
+        {% endif %}
+      </div>
+      <ul>
+        <li>{{ product.name }}</li>
+        <li>{{ product.description }}</li>
+        <li>{{ product.category.name }}</li>
+      </ul>
+    </div>
+  {% empty %}
+    <p>No products found.</p>
+  {% endfor %}
+{% endblock %}
